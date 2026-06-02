@@ -6,7 +6,7 @@ metadata:
 spec:
   project: kube-hello-kiali
   source:
-    repoURL: https://github.com/CHANGE_ME/kube-hello-kiali.git
+    repoURL: https://github.com/dgkim-lab/kube-hello-kiali.git
     targetRevision: main
     path: deploy
     directory:
@@ -20,4 +20,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-

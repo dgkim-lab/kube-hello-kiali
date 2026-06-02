@@ -66,7 +66,7 @@ GHCR_USER=<user> GHCR_TOKEN=<token> scripts/create-ghcr-secret.sh
 Apply the Argo CD project and application:
 
 ```bash
-REPO_URL=https://github.com/<user>/kube-hello-kiali.git scripts/bootstrap-argocd-apps.sh
+scripts/bootstrap-argocd-apps.sh
 ```
 
 Argo CD watches `deploy/` and syncs the Kubernetes resources.
@@ -76,9 +76,9 @@ Argo CD watches `deploy/` and syncs the Kubernetes resources.
 Default manifests use placeholder images:
 
 ```text
-ghcr.io/CHANGE_ME/kube-hello-kiali-frontend:latest
-ghcr.io/CHANGE_ME/kube-hello-kiali-challenge-api:latest
-ghcr.io/CHANGE_ME/kube-hello-kiali-judge-api:latest
+ghcr.io/dgkim-lab/kube-hello-kiali-frontend:latest
+ghcr.io/dgkim-lab/kube-hello-kiali-challenge-api:latest
+ghcr.io/dgkim-lab/kube-hello-kiali-judge-api:latest
 ```
 
-Update these before deploying, or configure the GitHub Actions workflow with `GHCR_OWNER`.
+GitHub Actions updates these tags to the pushed commit SHA after images are built.

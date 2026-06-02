@@ -19,7 +19,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: challenge-api
-          image: ghcr.io/CHANGE_ME/kube-hello-kiali-challenge-api:latest
+          image: ghcr.io/dgkim-lab/kube-hello-kiali-challenge-api:latest
           ports:
             - containerPort: 8080
           env:
@@ -31,4 +31,3 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
-
