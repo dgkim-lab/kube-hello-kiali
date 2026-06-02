@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: bff
+  name: rps-api
   namespace: kube-hello-kiali
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -10,10 +10,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - bff.k3s.dgkim.net
-      secretName: bff-k3s-dgkim-net-tls
+        - rps-api.k3s.dgkim.net
+      secretName: rps-api-k3s-dgkim-net-tls
   rules:
-    - host: bff.k3s.dgkim.net
+    - host: rps-api.k3s.dgkim.net
       http:
         paths:
           - path: /
