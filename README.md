@@ -55,6 +55,8 @@ The frontend still calls the BFF through its in-cluster nginx `/api` proxy, pres
 frontend -> challenge-api -> judge-api
 ```
 
+`challenge-api` uses permissive mTLS because it is also exposed through Traefik as the BFF. `judge-api` uses strict mTLS so the backend-to-backend hop remains mesh-enforced.
+
 ## Kubernetes Bootstrap
 
 Create the GHCR pull secret:
