@@ -48,7 +48,7 @@ https://rps.k3s.dgkim.net
 https://rps-api.k3s.dgkim.net
 ```
 
-Both ingresses use Traefik `websecure` and cert-manager `ClusterIssuer` named `letsencrypt-prod`.
+Both ingresses use Traefik `websecure` and cert-manager `ClusterIssuer` named `letsencrypt-route53-prod`.
 The frontend still calls the BFF through its in-cluster nginx `/api` proxy, preserving this Kiali path:
 
 ```text
