@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -f ./env.sh ]]; then
+  # shellcheck disable=SC1091
+  source ./env.sh
+fi
+
 NAMESPACE="${NAMESPACE:-kube-hello-kiali}"
 SECRET_NAME="${SECRET_NAME:-ghcr-pull-secret}"
 GHCR_USER="${GHCR_USER:?Set GHCR_USER}"
@@ -15,4 +20,3 @@ kubectl create secret docker-registry "$SECRET_NAME" \
   --docker-password="$GHCR_TOKEN" \
   --dry-run=client \
   -o yaml | kubectl apply -f -
-

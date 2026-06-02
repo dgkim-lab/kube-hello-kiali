@@ -60,7 +60,9 @@ frontend -> challenge-api -> judge-api
 Create the GHCR pull secret:
 
 ```bash
-GHCR_USER=<user> GHCR_TOKEN=<token> scripts/create-ghcr-secret.sh
+cp env.example.sh env.sh
+# edit env.sh
+scripts/create-ghcr-secret.sh
 ```
 
 Apply the Argo CD project and application:
