@@ -59,7 +59,7 @@ frontend -> challenge-api -> judge-api
 
 `challenge-api` uses permissive mTLS because it is also exposed through Traefik as the BFF. `judge-api` uses strict mTLS so the backend-to-backend hop remains mesh-enforced.
 
-`judge-api` injects an error for about 20% of challenge requests. Both backends export OpenTelemetry traces to `http://jaeger-collector.istio-system:4318` when Jaeger or an OTLP-compatible collector is installed. Error spans record exception events and error status so they can be inspected in Jaeger.
+`judge-api` injects an error for about 20% of challenge requests. Both backends export OpenTelemetry traces to `http://jaeger.jaeger:4318` when Jaeger or an OTLP-compatible collector is installed. Error spans record exception events and error status so they can be inspected in Jaeger.
 
 ## Kubernetes Bootstrap
 
