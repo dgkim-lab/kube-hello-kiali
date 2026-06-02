@@ -10,6 +10,8 @@ browser -> Traefik -> frontend -> challenge-api -> judge-api
 
 Istio is intended to handle only in-cluster east-west traffic. Traefik remains the north-south ingress controller.
 
+The Kubernetes runtime namespace is `rps`. Kiali filters Kubernetes-system-style namespace names such as `kube-*`, so the app intentionally avoids using `kube-hello-kiali` as the namespace.
+
 ## Sequence
 
 ```mermaid

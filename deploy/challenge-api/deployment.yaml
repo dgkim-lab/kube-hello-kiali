@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: challenge-api
-  namespace: kube-hello-kiali
+  namespace: rps
   labels:
     app: challenge-api
 spec:

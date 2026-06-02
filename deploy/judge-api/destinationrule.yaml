@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
   name: judge-api
-  namespace: kube-hello-kiali
+  namespace: rps
 spec:
   host: judge-api
   trafficPolicy:

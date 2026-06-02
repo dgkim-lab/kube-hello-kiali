@@ -6,7 +6,7 @@ if [[ -f ./env.sh ]]; then
   source ./env.sh
 fi
 
-NAMESPACE="${NAMESPACE:-kube-hello-kiali}"
+NAMESPACE="${NAMESPACE:-rps}"
 SECRET_NAME="${SECRET_NAME:-ghcr-pull-secret}"
 GHCR_USER="${GHCR_USER:?Set GHCR_USER}"
 GHCR_TOKEN="${GHCR_TOKEN:?Set GHCR_TOKEN}"

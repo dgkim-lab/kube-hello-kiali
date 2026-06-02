@@ -8,7 +8,7 @@ spec:
   sourceRepos:
     - "*"
   destinations:
-    - namespace: kube-hello-kiali
+    - namespace: rps
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: ""

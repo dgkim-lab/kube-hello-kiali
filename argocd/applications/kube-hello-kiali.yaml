@@ -13,7 +13,7 @@ spec:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-hello-kiali
+    namespace: rps
   syncPolicy:
     automated:
       prune: true

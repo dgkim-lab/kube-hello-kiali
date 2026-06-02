@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: judge-api
-  namespace: kube-hello-kiali
+  namespace: rps
   labels:
     app: judge-api
 spec:

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: challenge-api
-  namespace: kube-hello-kiali
+  namespace: rps
   labels:
     app: challenge-api
 spec:

@@ -7,6 +7,6 @@ export GHCR_USER="your-github-user"
 export GHCR_TOKEN="github-token-with-read-packages"
 
 # Optional overrides.
-export NAMESPACE="kube-hello-kiali"
+export NAMESPACE="rps"
 export SECRET_NAME="ghcr-pull-secret"
 

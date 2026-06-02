@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: judge-api
-  namespace: kube-hello-kiali
+  namespace: rps
 spec:
   hosts:
     - judge-api
