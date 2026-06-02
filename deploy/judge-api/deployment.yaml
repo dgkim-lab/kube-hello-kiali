@@ -25,6 +25,12 @@ spec:
           env:
             - name: PORT
               value: "8081"
+            - name: ERROR_RATE
+              value: "0.2"
+            - name: OTEL_SERVICE_NAME
+              value: judge-api
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://jaeger-collector.istio-system:4318
           readinessProbe:
             httpGet:
               path: /healthz

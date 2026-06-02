@@ -1,8 +1,12 @@
+import "./tracing.js";
+import { context, propagation, SpanStatusCode, trace } from "@opentelemetry/api";
 import express from "express";
 
 const app = express();
 const port = Number(process.env.PORT || 8081);
 const moves = ["rock", "paper", "scissors"];
+const errorRate = Number(process.env.ERROR_RATE || 0.2);
+const tracer = trace.getTracer("judge-api");
 
 app.use(express.json());
 
@@ -18,10 +22,48 @@ app.post("/judge", (req, res) => {
     return;
   }
 
-  const serverMove = moves[Math.floor(Math.random() * moves.length)];
-  const result = judge(playerMove, serverMove);
-  res.json({ playerMove, serverMove, result });
+  const parentContext = propagation.extract(context.active(), req.headers);
+
+  tracer.startActiveSpan("judge-api.decide-round", {}, parentContext, (span) => {
+    span.setAttributes({
+      "http.route": "/judge",
+      "rps.player_move": playerMove,
+      "rps.error_rate": errorRate,
+    });
+
+    try {
+      maybeThrowInjectedError();
+
+      const serverMove = moves[Math.floor(Math.random() * moves.length)];
+      const result = judge(playerMove, serverMove);
+
+      span.setAttributes({
+        "rps.server_move": serverMove,
+        "rps.result": result,
+      });
+      span.setStatus({ code: SpanStatusCode.OK });
+      res.json({ playerMove, serverMove, result });
+    } catch (err) {
+      span.recordException(err);
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: err instanceof Error ? err.message : "unknown judge-api error",
+      });
+      res.status(500).json({
+        error: err instanceof Error ? err.message : "judge-api failed",
+        code: "injected_judge_error",
+      });
+    } finally {
+      span.end();
+    }
+  });
 });
+
+function maybeThrowInjectedError() {
+  if (Math.random() < errorRate) {
+    throw new Error("Injected judge-api failure for tracing demo");
+  }
+}
 
 function judge(playerMove, serverMove) {
   if (playerMove === serverMove) return "draw";
@@ -38,4 +80,3 @@ function judge(playerMove, serverMove) {
 app.listen(port, () => {
   console.log(`judge-api listening on ${port}`);
 });
-

@@ -27,6 +27,10 @@ spec:
               value: "8080"
             - name: JUDGE_API_URL
               value: http://judge-api:8081
+            - name: OTEL_SERVICE_NAME
+              value: challenge-api
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://jaeger-collector.istio-system:4318
           readinessProbe:
             httpGet:
               path: /healthz
