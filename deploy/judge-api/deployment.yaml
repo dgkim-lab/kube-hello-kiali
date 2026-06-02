@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: judge-api
+  namespace: kube-hello-kiali
+  labels:
+    app: judge-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: judge-api
+  template:
+    metadata:
+      labels:
+        app: judge-api
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: judge-api
+          image: ghcr.io/CHANGE_ME/kube-hello-kiali-judge-api:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: PORT
+              value: "8081"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+

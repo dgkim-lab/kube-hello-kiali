@@ -1,0 +1,53 @@
+name: Build Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/**"
+      - ".github/workflows/build-images.yaml"
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    env:
+      GHCR_OWNER: CHANGE_ME
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          set -euo pipefail
+
+          build_image() {
+            app="$1"
+            image="ghcr.io/${GHCR_OWNER}/kube-hello-kiali-${app}:${IMAGE_TAG}"
+
+            docker build -t "$image" "apps/$app"
+            docker push "$image"
+          }
+
+          build_image frontend
+          build_image challenge-api
+          build_image judge-api
+      - uses: mikefarah/yq@v4.44.3
+        with:
+          cmd: |
+            yq -i '.spec.template.spec.containers[0].image = "ghcr.io/${{ env.GHCR_OWNER }}/kube-hello-kiali-frontend:${{ env.IMAGE_TAG }}"' deploy/frontend/deployment.yaml
+            yq -i '.spec.template.spec.containers[0].image = "ghcr.io/${{ env.GHCR_OWNER }}/kube-hello-kiali-challenge-api:${{ env.IMAGE_TAG }}"' deploy/challenge-api/deployment.yaml
+            yq -i '.spec.template.spec.containers[0].image = "ghcr.io/${{ env.GHCR_OWNER }}/kube-hello-kiali-judge-api:${{ env.IMAGE_TAG }}"' deploy/judge-api/deployment.yaml
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add deploy/frontend/deployment.yaml deploy/challenge-api/deployment.yaml deploy/judge-api/deployment.yaml
+          git commit -m "Update image tags to ${IMAGE_TAG}" || exit 0
+          git push

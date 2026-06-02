@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build:
+      context: ./apps/frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - challenge-api
+
+  challenge-api:
+    build:
+      context: ./apps/challenge-api
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      JUDGE_API_URL: http://judge-api:8081
+    depends_on:
+      - judge-api
+
+  judge-api:
+    build:
+      context: ./apps/judge-api
+    ports:
+      - "8081:8081"
+    environment:
+      PORT: "8081"

@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - "apps/**"
+      - ".github/workflows/ci.yaml"
+  pull_request:
+    paths:
+      - "apps/**"
+      - ".github/workflows/ci.yaml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:
+          - frontend
+          - challenge-api
+          - judge-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install
+        working-directory: apps/${{ matrix.app }}
+      - run: npm run build --if-present
+        working-directory: apps/${{ matrix.app }}
+

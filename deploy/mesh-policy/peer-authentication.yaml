@@ -1,0 +1,32 @@
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: kube-hello-kiali
+spec:
+  mtls:
+    mode: PERMISSIVE
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: challenge-api-strict
+  namespace: kube-hello-kiali
+spec:
+  selector:
+    matchLabels:
+      app: challenge-api
+  mtls:
+    mode: STRICT
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: judge-api-strict
+  namespace: kube-hello-kiali
+spec:
+  selector:
+    matchLabels:
+      app: judge-api
+  mtls:
+    mode: STRICT

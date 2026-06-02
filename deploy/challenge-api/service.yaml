@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: challenge-api
+  namespace: kube-hello-kiali
+  labels:
+    app: challenge-api
+spec:
+  selector:
+    app: challenge-api
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+

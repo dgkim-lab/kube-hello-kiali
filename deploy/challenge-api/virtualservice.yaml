@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: challenge-api
+  namespace: kube-hello-kiali
+spec:
+  hosts:
+    - challenge-api
+  http:
+    - route:
+        - destination:
+            host: challenge-api
+            port:
+              number: 8080
+

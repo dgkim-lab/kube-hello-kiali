@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kube-hello-kiali
+  namespace: argocd
+spec:
+  description: kube-hello-kiali demo project
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: kube-hello-kiali
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+

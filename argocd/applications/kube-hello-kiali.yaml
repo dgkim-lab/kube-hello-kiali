@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-hello-kiali
+  namespace: argocd
+spec:
+  project: kube-hello-kiali
+  source:
+    repoURL: https://github.com/CHANGE_ME/kube-hello-kiali.git
+    targetRevision: main
+    path: deploy
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-hello-kiali
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
