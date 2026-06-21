@@ -46,8 +46,8 @@ http://localhost:5173
 The Kubernetes manifests expose:
 
 ```text
-https://rps.k3s.dgkim.net
-https://rps-api.k3s.dgkim.net
+https://rps.k3s-test.dgkim.net
+https://rps-api.k3s-test.dgkim.net
 ```
 
 Both ingresses use Traefik `websecure` and cert-manager `ClusterIssuer` named `letsencrypt-route53-prod`.

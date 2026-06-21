@@ -10,10 +10,10 @@ spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - rps-api.k3s.dgkim.net
+        - rps-api.k3s-test.dgkim.net
       secretName: rps-api-k3s-dgkim-net-tls
   rules:
-    - host: rps-api.k3s.dgkim.net
+    - host: rps-api.k3s-test.dgkim.net
       http:
         paths:
           - path: /
