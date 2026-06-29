@@ -19,7 +19,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: frontend
-          image: ghcr.io/dgkim-lab/kube-hello-kiali-frontend:198ae3406a5aa897f58403d1c0c047e3d33015f4
+          image: ghcr.io/dgkim-lab/kube-hello-kiali-frontend:2ca4155240abbe06ed1ae666e9412aa89b2ab5bc
           ports:
             - containerPort: 80
           readinessProbe:
